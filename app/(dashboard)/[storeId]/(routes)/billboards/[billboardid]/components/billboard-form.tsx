@@ -24,9 +24,10 @@ import { useParams, useRouter } from "next/navigation";
 import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
 import { init } from "next/dist/compiled/webpack/webpack";
+import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
-  label: z.string().min(1),
+  lable: z.string().min(1),
   imageUrl: z.string().min(1)
 });
 
@@ -51,7 +52,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initalData }) => {
   const form = useForm<BillboardFromValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initalData || {
-      label: "",
+      lable: "",
       imageUrl: ""
     }
   });
@@ -59,9 +60,14 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initalData }) => {
   const onsubmit = async (data: BillboardFromValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      if(initalData){
+        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardid}`, data);
+      }else{
+        await axios.post(`/api/${params.storeId}/billboards`, data);
+      }
       router.refresh();
-      toast.success("store updated");
+      router.push(`/${params.storeId}/billboards`)
+      toast.success(toastMessage);
       console.log(params);
     } catch (error) {
       toast.error("Something is wrong");
@@ -74,12 +80,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initalData }) => {
     try {
       setLoading(true);
 
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardid}`);
       router.refresh();
-      router.push("/");
-      toast.success("store Deleted successfully");
+      router.push(`/${params.storeId}/billboards`);
+      toast.success("Billboard Deleted successfully");
     } catch (error) {
-      toast.error("Make sure you Delete all products and categories");
+      toast.error("Make sure you remove all categories using this billboards");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -113,13 +119,31 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initalData }) => {
           onSubmit={form.handleSubmit(onsubmit)}
           className="space-y-8 w-full"
         >
+          <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Background Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload  value={field.value ? [field.value]:[]}
+                    disabled={loading}
+                    onChange={(url)=>field.onChange(url)}
+                    onRemove={()=>field.onChange('')}
+
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="label"
+              name="lable"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Lable</FormLabel>
                   <FormControl>
                     <Input
                       disabled={false}
@@ -137,7 +161,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initalData }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
