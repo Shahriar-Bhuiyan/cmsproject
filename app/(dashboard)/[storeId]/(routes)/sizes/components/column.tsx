@@ -5,27 +5,25 @@ import { Button } from "@/components/ui/button"
 import { CellActions } from "./cell-action"
 
 
-export type CategoryColumns = {
+export type SizeColumns = {
   id: string
   name: string
-  billboardLable:string
+  value:string
   createdAt:string
 }
 
-export const columns: ColumnDef<CategoryColumns>[] = [
+export const columns: ColumnDef<SizeColumns>[] = [
   {
     accessorKey: "name",
-    header:'Name',
+    header:'Name'
   },
   {
-    accessorKey: "billboard",
-    header: "Billboard",
-    cell:({row})=> row.original.billboardLable
+    accessorKey: "value",
+    header:'Value'
   },
   {
-    accessorKey:'createdAt',
-    header:'Date'
-   
+    accessorKey: "createdAt",
+    header: "Date",
   },
   {
     id:"actions",

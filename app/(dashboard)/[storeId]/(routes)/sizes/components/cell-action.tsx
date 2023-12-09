@@ -13,14 +13,14 @@ import {
 import { useState } from "react"
 
 
-import {  CategoryColumns } from "./column"
+import { SizeColumns } from "./column"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
 import toast from "react-hot-toast"
 import { useParams, useRouter } from "next/navigation"
 import { AlertModal } from "@/components/modals/alert-modal"
 
 interface CellActionProps{
-    data: CategoryColumns;
+    data:BillboardColumns;
 }
 
 export const CellActions:React.FC<CellActionProps> = ({data})=>{
@@ -32,7 +32,7 @@ export const CellActions:React.FC<CellActionProps> = ({data})=>{
   
     const onCopy = (id:string)=>{
         navigator.clipboard.writeText(id)
-        toast.success('Category Id copied to the clipboard')
+        toast.success('Billboard Id copied to the clipboard')
     }
     
 
@@ -40,9 +40,9 @@ export const CellActions:React.FC<CellActionProps> = ({data})=>{
         try {
           setLoading(true);
     
-          await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+          await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
           router.refresh();
-          router.push(`/${params.storeId}/categories`);
+          router.push(`/${params.storeId}/billboards`);
           toast.success("Billboard Deleted successfully");
         } catch (error) {
           toast.error("Make sure you remove all categories using this billboards");
@@ -71,7 +71,7 @@ export const CellActions:React.FC<CellActionProps> = ({data})=>{
                 <Copy className="mr-2 h-4 w-4" />
                  Copy Id
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/categories/${data.id}`)}>
+            <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/billboards/${data.id}`)}>
                 <Edit className="mr-2 h-4 w-4"/>
                 Update
             </DropdownMenuItem>
