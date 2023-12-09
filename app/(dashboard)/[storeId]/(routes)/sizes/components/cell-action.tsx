@@ -1,5 +1,4 @@
 "use client"
- 
 import * as React from "react"
 import axios from "axios"
 import { Button } from "@/components/ui/button"
@@ -11,8 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
-
-
 import { SizeColumns } from "./column"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
 import toast from "react-hot-toast"
@@ -20,7 +17,7 @@ import { useParams, useRouter } from "next/navigation"
 import { AlertModal } from "@/components/modals/alert-modal"
 
 interface CellActionProps{
-    data:BillboardColumns;
+    data:SizeColumns;
 }
 
 export const CellActions:React.FC<CellActionProps> = ({data})=>{
@@ -32,7 +29,7 @@ export const CellActions:React.FC<CellActionProps> = ({data})=>{
   
     const onCopy = (id:string)=>{
         navigator.clipboard.writeText(id)
-        toast.success('Billboard Id copied to the clipboard')
+        toast.success('Size Id copied to the clipboard')
     }
     
 
@@ -40,12 +37,12 @@ export const CellActions:React.FC<CellActionProps> = ({data})=>{
         try {
           setLoading(true);
     
-          await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+          await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
           router.refresh();
-          router.push(`/${params.storeId}/billboards`);
-          toast.success("Billboard Deleted successfully");
+          router.push(`/${params.storeId}/sizes`);
+          toast.success("Size Deleted successfully");
         } catch (error) {
-          toast.error("Make sure you remove all categories using this billboards");
+          toast.error("Make sure you remove all sizes using this sizes");
         } finally {
           setLoading(false);
           setOpen(false);
@@ -71,7 +68,7 @@ export const CellActions:React.FC<CellActionProps> = ({data})=>{
                 <Copy className="mr-2 h-4 w-4" />
                  Copy Id
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/billboards/${data.id}`)}>
+            <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/sizes/${data.id}`)}>
                 <Edit className="mr-2 h-4 w-4"/>
                 Update
             </DropdownMenuItem>

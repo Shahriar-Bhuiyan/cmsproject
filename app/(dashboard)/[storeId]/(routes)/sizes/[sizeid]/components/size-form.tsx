@@ -44,9 +44,9 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initalData }) => {
   const origin = useOrigin();
   const [loading, setLoading] = useState(false);
 
-  const title = initalData ? "Edit billboard" : "Create Billboard";
-  const description = initalData ? "Edit a billboard" : "Add a new billboard";
-  const toastMessage = initalData ? "Billboard updated" : "Billboard created";
+  const title = initalData ? "Edit Size" : "Create Size";
+  const description = initalData ? "Edit a Size" : "Add a new Size";
+  const toastMessage = initalData ? "Size updated" : "Size created";
   const action = initalData ? "Save Changes" : "Create";
 
   const form = useForm<SizeFromValues>({
