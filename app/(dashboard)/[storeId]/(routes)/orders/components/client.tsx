@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
