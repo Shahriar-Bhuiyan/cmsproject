@@ -5,7 +5,6 @@ import { stripe } from "@/lib/stripe";
 import prismadb from "@/lib/prismadb";
 
 
-
 const corsHeaders = {
     "Access-Control-Allow-Origin":"*",
     "Access-Control-Allow-Methods":"GET,POST,PUT,DELETE,OPTIONS",
@@ -19,7 +18,6 @@ export async function OPTIONS() {
 export async function POST (req:Request,
     {params}:{params:{storeId:string}}){
     
-
     const {productIds} = await req.json();
 
     if(!productIds || productIds.length === 0){
