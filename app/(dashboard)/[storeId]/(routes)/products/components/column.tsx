@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CellActions } from "./cell-action";
+import Image from "next/image";
 
 export type ProductColumns = {
   id: string;
@@ -72,10 +73,11 @@ export const columns: ColumnDef<ProductColumns>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
         {row.original.images.length > 0 && (
-          <img
+          <Image
             src={row.original.images[0].imageUrl} 
             alt="First Image"
             className="h-10"
+            fill
           />
         )}
       </div>
