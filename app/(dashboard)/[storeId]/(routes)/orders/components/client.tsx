@@ -1,5 +1,4 @@
 "use client"
-
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { useParams, useRouter } from "next/navigation";
