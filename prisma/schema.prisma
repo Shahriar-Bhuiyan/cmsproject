@@ -136,8 +136,8 @@ model OrderItem{
   id String @id @default(uuid())
   orderId String
   order Order @relation(fields: [orderId],references: [id])
-  productId String
-  product Product @relation(fields: [productId],references: [id])
+  productId String?
+  product Product? @relation(fields: [productId],references: [id],onDelete: Cascade)
 
   @@index([productId])
   @@index([orderId])
