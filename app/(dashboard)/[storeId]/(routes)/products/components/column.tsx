@@ -77,7 +77,6 @@ export const columns: ColumnDef<ProductColumns>[] = [
             src={row.original.images[0].imageUrl} 
             alt="First Image"
             className="h-10"
-            fill
           />
         )}
       </div>
