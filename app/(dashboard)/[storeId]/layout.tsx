@@ -22,6 +22,7 @@ export default async function DashboardLayout({
         userId
     }
    });
+   console.log(store)
 
 
    if(!store){

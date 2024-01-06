@@ -2,6 +2,7 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+// get products
 export async function GET(
   req: Request,
   { params }: { params: { productId:string} }
@@ -29,6 +30,8 @@ export async function GET(
   }
 }
 
+
+// update product
 export async function PATCH(
   req: Request,
   { params }: { params: { storeId:string,productId: string } }
@@ -132,6 +135,8 @@ export async function PATCH(
   }
 }
 
+// delete product
+
 export async function DELETE(
   req: Request,
   { params }: { params: { storeId: string ,productId:string} }
@@ -156,10 +161,11 @@ export async function DELETE(
   if(!storeByUserId){
       return new NextResponse('Unauthorized',{status:403})
   }
-    const product = await prismadb.product.deleteMany({
+    const product = await prismadb.product.delete({
       where: {
         id: params.productId,
       }
+      
     });
     return NextResponse.json(product);
   } catch (error) {

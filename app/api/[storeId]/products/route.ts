@@ -1,6 +1,5 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
-import { SearchCheck, UnfoldHorizontal } from "lucide-react";
 import { NextResponse } from "next/server";
 
 // POST

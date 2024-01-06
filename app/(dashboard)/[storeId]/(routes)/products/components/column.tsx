@@ -73,10 +73,11 @@ export const columns: ColumnDef<ProductColumns>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
         {row.original.images.length > 0 && (
-          <Image
+          <img
             src={row.original.images[0].imageUrl} 
             alt="First Image"
             className="h-10"
+            width='40'
           />
         )}
       </div>
